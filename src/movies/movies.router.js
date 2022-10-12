@@ -7,7 +7,7 @@ router.get ('/', moviesServices.getAllMovies)
 router.post ('/', moviesServices.postMovie)
 
 router.get('/:id', moviesServices.getMovieById)
-// router.delete('/:id')
+router.delete('/:id', moviesServices.deleteMovie)
 router.patch('/:id', moviesServices.patchMovie)
 // router.put('/:id')
 

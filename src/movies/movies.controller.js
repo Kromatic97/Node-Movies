@@ -76,11 +76,22 @@ const editMovie = async (id, data) => {
 //     console.log(err)
 // });
 
+//!DELETE movies//
+const deleteMovie = async (id) => {
+    const data = await Movies.destroy({
+        where: {
+            id:id
+        }
+    })
+    return data
+}
+
 //?Exportando los metodos y funciones//
 
 module.exports={
     getAllMovies,
     getMovieById,
     createMovie,
-    editMovie
+    editMovie,
+    deleteMovie
 }

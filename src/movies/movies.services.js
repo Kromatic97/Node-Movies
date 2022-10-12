@@ -54,22 +54,45 @@ const getMovieById = (req, res) => {
 const patchMovie = (req, res) => {
     const id = req.params.id
     const {name, genre, duration, releaseDate} = req.body;
+
     moviesControllers.editMovie(id, {name, genre, duration, releaseDate})
-    .then(response =>{
-        res.status(200).json({
-           message:`Movie whit id: ${id}, edited succesfully` 
+    .then((response) => {
+
+        if(response[0]){
+            res.status(200).json({message:`Movie whit id: ${id}, edited succesfully`}) 
+         } else {
+            res.status(400).json({message:error.message})
+         }
         })
+        .catch(error => {
+            res.status(400).json({message:error.message})
+        })
+}
+
+//!Servicio para el DELETE//
+const  deleteMovie = (req, res) => {
+    const id = req.params.id
+    moviesControllers.deleteMovie(id)
+    .then((response) => {
+        if(response){
+            res.status(204).json(response)
+        }else {
+            res.status(400).json({message: 'Invalid ID'})
+        }
     })
-    .catch(error => {
-        res.status(400).json({message:error.message})
+    .catch(err => {
+        res.status(400).json(err)
     })
 }
+
+
 
 module.exports = {
     getAllMovies,
     getMovieById,
     postMovie,
-    patchMovie
+    patchMovie,
+    deleteMovie
 
 }
 
