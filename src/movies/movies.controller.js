@@ -1,9 +1,9 @@
 
+//?1ero importa el modelo de la BD
+const Movies = require ('../models/movies.models')
+
+//?importar uuid
 const uuid = require ('uuid')
-
-//TODO 1ero importa el modelo de la BD
-const Movies = require ('../models/movies.models') 
-
 
 //!FUNCION PARA TRAER TODOS LOS DATOS
 const getAllMovies = async () => {
@@ -11,10 +11,11 @@ const getAllMovies = async () => {
     return data
 }
 
-//!CONTROLLADOR PARA MOSTRAR LOS DATOS//
-getAllMovies()
-.then((response) => console.log(response))
-.catch((err) => console.log(err))
+//!CONTROLLADOR PARA RESOLVER LA PROMESA QUE SE EJECUTE 1 VEZ NADA MAS//
+// getAllMovies()
+// .then((response) => console.log(response))
+// .catch((err) => console.log(err))
+
 
 //?FUNCION PARA INSERTAR LOS DATOS//
 const createMovie = async (data) => {
@@ -28,14 +29,16 @@ const createMovie = async (data) => {
     return newMovie
 }
 
-createMovie ({
-name:'Dracula',
-genre:'Action',
-duration:'120',
-releaseDate:'2015/05/23'
-})
-.then((response) => console.log(response))
-.catch((err) => console.log(err))
+// createMovie ({
+// name:'Dracula',
+// genre:'Action',
+// duration:120,
+// releaseDate:'2015/05/23'
+// })
+// .then((response) => console.log(response))
+// .catch((err) => console.log(err))
+
+
 
 //!CONSULTA POR ID//
 const getMovieById =  async (id) => {
@@ -48,8 +51,36 @@ const getMovieById =  async (id) => {
 return data
 }
 
-getMovieById('58eeec50-e687-468a-9e60-bc0081c332a0')
-.then((response) => console.log(response))
-.catch((err) => console.log(err))
+// getMovieById('5877d728-265d-4608-9f1b-88003c1f93a5')
+// .then((response) => console.log(response))
+// .catch((err) => console.log(err))
 
-//!MODIFICAR//
+//!UPDate movies//
+const editMovie = async (id, data) => {
+    const response = await Movies.update(data, {
+        where: {
+            id: id
+        },
+    })
+    return response
+}
+
+//?prueba de edit de Movie//
+// editMovie('a4ccf8b9-2800-4f69-8422-65b5f8d6aa0f', {
+//     name:'El vampiro',
+//     duration:150
+// }).then((response) => {
+//     console.log(response);
+// })
+// .catch ((err) => {
+//     console.log(err)
+// });
+
+//?Exportando los metodos y funciones//
+
+module.exports={
+    getAllMovies,
+    getMovieById,
+    createMovie,
+    editMovie
+}
